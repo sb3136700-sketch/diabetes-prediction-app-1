@@ -105,6 +105,7 @@ if reset_btn:
 
 # ---------------- EXTRA INFO ----------------
 st.markdown("<hr>", unsafe_allow_html=True)
-st.info("⚠️ This application is designed for academic demonstration only.")
+#st.info("⚠️ This application is designed for academic demonstration only.")
+
 
 
