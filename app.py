@@ -90,11 +90,11 @@ if predict_btn:
 
     # ---- Diabetes Check ----
     if glucose >= 140 or hba1c >= 6.5:
-        st.error("⚠️ Diabetes Status: HIGH RISK")
+        st.error("⚠️ Blood Glucose: HIGH RISK")
     elif 100 <= glucose < 140:
-        st.warning("⚠️ Diabetes Status: PREDIABETES")
+        st.warning("⚠️ Blood Glucose: PREDIABETES")
     else:
-        st.success("✅ Diabetes Status: NORMAL")
+        st.success("✅ Blood Glucose: Excellent")
 
     # ---- Blood Pressure Check ----
     if systolic < 90 or diastolic < 60:
@@ -124,6 +124,7 @@ if reset_btn:
 # ---------------- EXTRA INFO ----------------
 st.markdown("<hr>", unsafe_allow_html=True)
 #st.info("⚠️ This application is designed for academic demonstration only.")
+
 
 
 
