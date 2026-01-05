@@ -83,29 +83,48 @@ with colB:
 with colC:
     reset_btn = st.button("🔄 Reset")
 
-# ---------------- ACTIONS ----------------
-if preview_btn:
-    st.info(f"""
-    👤 Age: {age}  
-    🧪 Glucose: {glucose}  
-    🩸 HbA1c: {hba1c}  
-    🧬 Cholesterol: {cholesterol}  
-    💓 BP: {systolic}/{diastolic}
-    """)
-
+# ---------------- PREDICTION ----------------
 if predict_btn:
-    if glucose > 140 or hba1c > 6.5 or systolic > 140:
-        st.error("⚠️ HIGH RISK OF DIABETES")
+
+    st.subheader("🩺 Health Analysis Report")
+
+    # ---- Diabetes Check ----
+    if glucose >= 140 or hba1c >= 6.5:
+        st.error("⚠️ Diabetes Status: HIGH RISK")
+    elif 100 <= glucose < 140:
+        st.warning("⚠️ Diabetes Status: PREDIABETES")
     else:
-        st.success("✅ LOW RISK OF DIABETES")
+        st.success("✅ Diabetes Status: NORMAL")
 
+    # ---- Blood Pressure Check ----
+    if systolic < 90 or diastolic < 60:
+        st.warning("⚠️ Blood Pressure: LOW BP")
+    elif systolic > 140 or diastolic > 90:
+        st.error("⚠️ Blood Pressure: HIGH BP")
+    else:
+        st.success("✅ Blood Pressure: NORMAL")
+
+    # ---- Cholesterol Check ----
+    if cholesterol >= 240:
+        st.error("⚠️ Cholesterol Level: HIGH")
+    elif 200 <= cholesterol < 240:
+        st.warning("⚠️ Cholesterol Level: BORDERLINE HIGH")
+    else:
+        st.success("✅ Cholesterol Level: NORMAL")
+
+    # ---- Overall Health Summary ----
+    if (glucose >= 140 or hba1c >= 6.5) or systolic > 140 or cholesterol >= 240:
+        st.error("🚨 Overall Health: NEEDS MEDICAL ATTENTION")
+    else:
+        st.success("💚 Overall Health: GOOD CONDITION")
+
+# ---------------- RESET ----------------
 if reset_btn:
-    st.rerun()
-
-
+    st.experimental_rerun()
 # ---------------- EXTRA INFO ----------------
 st.markdown("<hr>", unsafe_allow_html=True)
 #st.info("⚠️ This application is designed for academic demonstration only.")
+
 
 
 
