@@ -1,10 +1,16 @@
 import streamlit as st
+import pickle
+import numpy as np
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
     page_title="DIABETES PREDICTION",
     layout="wide"
 )
+
+# ---------------- LOAD ML MODEL ----------------
+with open("diabetes_model.pkl", "rb") as file:
+    model = pickle.load(file)
 
 # ---------------- CSS STYLE ----------------
 st.markdown("""
@@ -33,7 +39,7 @@ body {
 
 # ---------------- TITLE ----------------
 st.markdown("<div class='main-title'>🩺 DIABETES PREDICTION</div>", unsafe_allow_html=True)
-st.markdown("<div class='sub-title'>Professional Health Risk Analysis System</div>", unsafe_allow_html=True)
+st.markdown("<div class='sub-title'>Machine Learning Based Health Risk Analysis</div>", unsafe_allow_html=True)
 st.markdown("<hr>", unsafe_allow_html=True)
 
 # ---------------- INPUT SECTION ----------------
@@ -75,33 +81,34 @@ if preview_btn:
     💓 BP: {systolic}/{diastolic}
     """)
 
-# ---------------- PREDICTION ----------------
+# ---------------- ML PREDICTION ----------------
 if predict_btn:
 
-    st.subheader("🩺 Health Analysis Report")
+    st.subheader("🧠 Machine Learning Prediction")
 
-    # ---- Blood Glucose & HbA1c ----
-if glucose >= 200 or hba1c >= 8:
-    st.error("🚨 Blood Glucose: HIGH RISK (DIABETIC RANGE)")
-    # ---- Blood Glucose & HbA1c ----
-    if glucose >= 200 or hba1c >= 8:
-        st.error("🚨 Blood Glucose: HIGH RISK")
-    elif 7 <= hba1c <=8:
-        st.warning("⚠️ Blood Glucose: MEDIUM RISK")
-    elif 140 <= glucose < 200 or 5.7 <= hba1c < 7:
-        st.warning("⚠️ Blood Glucose: PREDIABETES")
-    elif 100 <= glucose < 140:
-        st.info("ℹ️ Blood Glucose: BORDERLINE")
+    # ⚠️ ORDER MUST MATCH TRAINING
+    input_data = np.array([[age, glucose, hba1c, cholesterol, systolic, diastolic]])
+
+    prediction = model.predict(input_data)
+    probability = model.predict_proba(input_data)
+
+    if prediction[0] == 1:
+        st.error(f"🚨 DIABETES DETECTED (Risk: {probability[0][1]*100:.1f}%)")
     else:
-        st.success("✅ Blood Glucose: NORMAL")
-elif 140 <= glucose < 200 or 5.7 <= hba1c < 7:
-    st.warning("⚠️ Blood Glucose: PREDIABETES")
+        st.success(f"✅ NO DIABETES (Risk: {probability[0][0]*100:.1f}%)")
 
-elif 100 <= glucose < 140:
-    st.info("ℹ️ Blood Glucose: BORDERLINE")
+    st.markdown("---")
+    st.subheader("📊 Health Parameter Analysis")
 
-else:
-    st.success("✅ Blood Glucose: NORMAL")
+    # ---- Blood Glucose & HbA1c (Support Info) ----
+    if hba1c >= 8:
+        st.error("🚨 HbA1c: HIGH RISK")
+    elif 7 <= hba1c < 8:
+        st.warning("⚠️ HbA1c: MEDIUM RISK")
+    elif 5.7 <= hba1c < 7:
+        st.warning("⚠️ HbA1c: PREDIABETES")
+    else:
+        st.success("✅ HbA1c: NORMAL")
 
     # ---- Blood Pressure ----
     if systolic < 90 or diastolic < 60:
@@ -113,26 +120,15 @@ else:
 
     # ---- Cholesterol ----
     if cholesterol >= 240:
-        st.error("⚠️ Cholesterol Level: HIGH")
+        st.error("⚠️ Cholesterol: HIGH")
     elif 200 <= cholesterol < 240:
-        st.warning("⚠️ Cholesterol Level: BORDERLINE HIGH")
+        st.warning("⚠️ Cholesterol: BORDERLINE HIGH")
     else:
-        st.success("✅ Cholesterol Level: NORMAL")
-
-    # ---- Overall Health ----
-    if (glucose >= 200 or hba1c >= 6.5) or systolic > 140 or cholesterol >= 240:
-        st.error("🚨 Overall Health: NEEDS MEDICAL ATTENTION")
-    else:
-        st.success("💚 Overall Health: GOOD CONDITION")
+        st.success("✅ Cholesterol: NORMAL")
 
 # ---------------- RESET ----------------
 if reset_btn:
     st.experimental_rerun()
 
 st.markdown("<hr>", unsafe_allow_html=True)
-
-
-
-
-
-
+st.info("⚠️ This application is for academic & educational purposes only.")
