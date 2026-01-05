@@ -89,14 +89,19 @@ if predict_btn:
     st.subheader("🩺 Health Analysis Report")
 
     # ---- Diabetes Check ----
-    if glucose == 140 or hba1c >= 6.5:
-        st.error("⚠️ Blood Glucose: HIGH RISK")
-    elif glucose >= 141 and hba1c >= 7 and hba1c <=8:
-        st.error("✅ Blood Glucose: NORMAL")
-    elif 100 <= glucose < 140:
-        st.warning("⚠️ Blood Glucose: PREDIABETES")
-    else:
-        st.success("✅ Blood Glucose: Excellent")
+   # Blood Glucose & HbA1c Analysis
+
+if glucose >= 200 or hba1c >= 6.5:
+    st.error("🚨 Blood Glucose: DIABETIC RANGE")
+
+elif 140 <= glucose < 200 or 5.7 <= hba1c < 6.5:
+    st.warning("⚠️ Blood Glucose: PREDIABETES")
+
+elif 100 <= glucose < 140:
+    st.info("ℹ️ Blood Glucose: BORDERLINE")
+
+else:
+    st.success("✅ Blood Glucose: NORMAL")
 
     # ---- Blood Pressure Check ----
     if systolic < 90 or diastolic < 60:
@@ -126,6 +131,7 @@ if reset_btn:
 # ---------------- EXTRA INFO ----------------
 st.markdown("<hr>", unsafe_allow_html=True)
 #st.info("⚠️ This application is designed for academic demonstration only.")
+
 
 
 
