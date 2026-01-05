@@ -85,6 +85,8 @@ if glucose >= 200 or hba1c >= 8:
     st.error("🚨 Blood Glucose: HIGH RISK (DIABETIC RANGE)")
     if 7 <= hba1c < 8:
         st.warning("⚠️ Blood Glucose: MEDIUM RISK")
+    else :
+        st.error("🚨Blood Glucose: High Risk")
 elif 140 <= glucose < 200 or 5.7 <= hba1c < 7:
     st.warning("⚠️ Blood Glucose: PREDIABETES")
 
@@ -121,5 +123,6 @@ if reset_btn:
     st.experimental_rerun()
 
 st.markdown("<hr>", unsafe_allow_html=True)
+
 
 
