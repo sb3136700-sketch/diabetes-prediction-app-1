@@ -91,18 +91,16 @@ if predict_btn:
     # ---- Diabetes Check ----
    # Blood Glucose & HbA1c Analysis
 
-if glucose >= 200 or hba1c >= 6.5:
-    st.error("🚨 Blood Glucose: DIABETIC RANGE")
+ if glucose == 140 or hba1c >= 6.5:
+        st.error("⚠️ Blood Glucose: HIGH RISK")
+    elif glucose >= 141 and hba1c >= 7 and hba1c <=8:
+        st.error("✅ Blood Glucose: NORMAL")
+    elif 100 <= glucose < 140:
+        st.warning("⚠️ Blood Glucose: PREDIABETES")
+    else:
+        st.success("✅ Blood Glucose: Excellent")
 
-elif 140 <= glucose < 200 or 5.7 <= hba1c < 6.5:
-    st.warning("⚠️ Blood Glucose: PREDIABETES")
-
-elif 100 <= glucose < 140:
-    st.info("ℹ️ Blood Glucose: BORDERLINE")
-
-else:
-    st.success("✅ Blood Glucose: NORMAL")
-
+correct my code 
     # ---- Blood Pressure Check ----
     if systolic < 90 or diastolic < 60:
         st.warning("⚠️ Blood Pressure: LOW BP")
