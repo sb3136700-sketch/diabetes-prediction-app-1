@@ -81,14 +81,20 @@ if predict_btn:
     st.subheader("🩺 Health Analysis Report")
 
     # ---- Blood Glucose & HbA1c ----
-    if glucose >= 200 or hba1c >= 6.5:
-        st.error("🚨 Blood Glucose: DIABETIC RANGE")
-    elif 140 <= glucose < 200 or 5.7 <= hba1c < 6.5:
-        st.warning("⚠️ Blood Glucose: PREDIABETES")
-    elif 100 <= glucose < 140:
-        st.info("ℹ️ Blood Glucose: BORDERLINE")
-    else:
-        st.success("✅ Blood Glucose: NORMAL")
+if glucose >= 200 or hba1c >= 8:
+    st.error("🚨 Blood Glucose: HIGH RISK (DIABETIC RANGE)")
+
+elif 7 <= hba1c < 8:
+    st.warning("⚠️ Blood Glucose: MEDIUM RISK")
+
+elif 140 <= glucose < 200 or 5.7 <= hba1c < 7:
+    st.warning("⚠️ Blood Glucose: PREDIABETES")
+
+elif 100 <= glucose < 140:
+    st.info("ℹ️ Blood Glucose: BORDERLINE")
+
+else:
+    st.success("✅ Blood Glucose: NORMAL")
 
     # ---- Blood Pressure ----
     if systolic < 90 or diastolic < 60:
@@ -117,3 +123,4 @@ if reset_btn:
     st.experimental_rerun()
 
 st.markdown("<hr>", unsafe_allow_html=True)
+
