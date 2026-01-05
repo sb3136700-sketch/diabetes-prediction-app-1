@@ -22,25 +22,11 @@ body {
     text-align: center;
     color: #fff;
 }
-# .card {
-#     background-color: white;
-#     padding: 20px;
-#     border-radius: 12px;
-#     box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-# }
 .stButton>button {
     width: 100%;
     height: 55px;
     font-size: 18px;
     border-radius: 10px;
-}
-.predict {
-    background-color: #0A2647;
-    color: white;
-}
-.reset {
-    background-color: #888;
-    color: white;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -51,7 +37,6 @@ st.markdown("<div class='sub-title'>Professional Health Risk Analysis System</di
 st.markdown("<hr>", unsafe_allow_html=True)
 
 # ---------------- INPUT SECTION ----------------
-st.markdown("<div class='card'>", unsafe_allow_html=True)
 st.subheader("📋 Patient Details")
 
 col1, col2, col3 = st.columns(3)
@@ -68,9 +53,6 @@ with col3:
     systolic = st.number_input("Systolic BP (mmHg)", 80, 200)
     diastolic = st.number_input("Diastolic BP (mmHg)", 40, 140)
 
-st.markdown("</div>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
-
 # ---------------- BUTTONS ----------------
 colA, colB, colC = st.columns(3)
 
@@ -83,25 +65,32 @@ with colB:
 with colC:
     reset_btn = st.button("🔄 Reset")
 
+# ---------------- PREVIEW ----------------
+if preview_btn:
+    st.info(f"""
+    👤 Age: {age}  
+    🧪 Glucose: {glucose}  
+    🩸 HbA1c: {hba1c}  
+    🧬 Cholesterol: {cholesterol}  
+    💓 BP: {systolic}/{diastolic}
+    """)
+
 # ---------------- PREDICTION ----------------
 if predict_btn:
 
     st.subheader("🩺 Health Analysis Report")
 
-    # ---- Diabetes Check ----
-   # Blood Glucose & HbA1c Analysis
-
- if glucose == 140 or hba1c >= 6.5:
-        st.error("⚠️ Blood Glucose: HIGH RISK")
-    elif glucose >= 141 and hba1c >= 7 and hba1c <=8:
-        st.error("✅ Blood Glucose: NORMAL")
-    elif 100 <= glucose < 140:
+    # ---- Blood Glucose & HbA1c ----
+    if glucose >= 200 or hba1c >= 6.5:
+        st.error("🚨 Blood Glucose: DIABETIC RANGE")
+    elif 140 <= glucose < 200 or 5.7 <= hba1c < 6.5:
         st.warning("⚠️ Blood Glucose: PREDIABETES")
+    elif 100 <= glucose < 140:
+        st.info("ℹ️ Blood Glucose: BORDERLINE")
     else:
-        st.success("✅ Blood Glucose: Excellent")
+        st.success("✅ Blood Glucose: NORMAL")
 
-correct my code 
-    # ---- Blood Pressure Check ----
+    # ---- Blood Pressure ----
     if systolic < 90 or diastolic < 60:
         st.warning("⚠️ Blood Pressure: LOW BP")
     elif systolic > 140 or diastolic > 90:
@@ -109,7 +98,7 @@ correct my code
     else:
         st.success("✅ Blood Pressure: NORMAL")
 
-    # ---- Cholesterol Check ----
+    # ---- Cholesterol ----
     if cholesterol >= 240:
         st.error("⚠️ Cholesterol Level: HIGH")
     elif 200 <= cholesterol < 240:
@@ -117,8 +106,8 @@ correct my code
     else:
         st.success("✅ Cholesterol Level: NORMAL")
 
-    # ---- Overall Health Summary ----
-    if (glucose >= 140 or hba1c >= 6.5) or systolic > 140 or cholesterol >= 240:
+    # ---- Overall Health ----
+    if (glucose >= 200 or hba1c >= 6.5) or systolic > 140 or cholesterol >= 240:
         st.error("🚨 Overall Health: NEEDS MEDICAL ATTENTION")
     else:
         st.success("💚 Overall Health: GOOD CONDITION")
@@ -126,21 +115,5 @@ correct my code
 # ---------------- RESET ----------------
 if reset_btn:
     st.experimental_rerun()
-# ---------------- EXTRA INFO ----------------
+
 st.markdown("<hr>", unsafe_allow_html=True)
-#st.info("⚠️ This application is designed for academic demonstration only.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
