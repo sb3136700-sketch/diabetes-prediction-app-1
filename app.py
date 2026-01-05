@@ -22,12 +22,12 @@ body {
     text-align: center;
     color: #fff;
 }
-.card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-}
+# .card {
+#     background-color: white;
+#     padding: 20px;
+#     border-radius: 12px;
+#     box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+# }
 .stButton>button {
     width: 100%;
     height: 55px;
@@ -129,6 +129,7 @@ if reset_btn:
 # ---------------- EXTRA INFO ----------------
 st.markdown("<hr>", unsafe_allow_html=True)
 #st.info("⚠️ This application is designed for academic demonstration only.")
+
 
 
 
