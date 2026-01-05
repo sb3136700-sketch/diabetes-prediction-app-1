@@ -91,6 +91,8 @@ if predict_btn:
     # ---- Diabetes Check ----
     if glucose >= 140 or hba1c >= 6.5:
         st.error("⚠️ Blood Glucose: HIGH RISK")
+    elif glucose >= 140 or hba1c >= 7 or hba1c >=8:
+        st.error("✅ Blood Glucose: NORMAL")
     elif 100 <= glucose < 140:
         st.warning("⚠️ Blood Glucose: PREDIABETES")
     else:
@@ -124,6 +126,7 @@ if reset_btn:
 # ---------------- EXTRA INFO ----------------
 st.markdown("<hr>", unsafe_allow_html=True)
 #st.info("⚠️ This application is designed for academic demonstration only.")
+
 
 
 
