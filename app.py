@@ -16,11 +16,11 @@ body {
     text-align: center;
     font-size: 40px;
     font-weight: bold;
-    color: #0A2647;
+    color: #fff;
 }
 .sub-title {
     text-align: center;
-    color: #555;
+    color: #fff;
 }
 .card {
     background-color: white;
@@ -129,6 +129,7 @@ if reset_btn:
 # ---------------- EXTRA INFO ----------------
 st.markdown("<hr>", unsafe_allow_html=True)
 #st.info("⚠️ This application is designed for academic demonstration only.")
+
 
 
 
